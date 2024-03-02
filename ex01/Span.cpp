@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 00:37:44 by gmachado          #+#    #+#             */
-/*   Updated: 2024/02/20 04:16:21 by gmachado         ###   ########.fr       */
+/*   Updated: 2024/03/01 22:37:11 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 Span::Span(void) : m_numbers(), m_is_sorted(false), m_max_size(0) { }
 
-Span::Span(unsigned int N) : m_numbers(), m_is_sorted(false), m_max_size(N) { }
+Span::Span(const unsigned int N) : m_numbers(), m_is_sorted(false), m_max_size(N) { }
 
-Span::Span(Span &src) { *this = src; }
+Span::Span(const Span &src) { *this = src; }
 
 Span::~Span(void) { }
 
-Span &Span::operator=(Span &src)
+Span &Span::operator=(const Span &src)
 {
 	if (this == &src)
 		return *this;
@@ -32,7 +32,7 @@ Span &Span::operator=(Span &src)
 	return *this;
 }
 
-void Span::add_number(int elem)
+void Span::addNumber(int elem)
 {
 	if (m_numbers.size() == m_max_size)
 		throw FullSpanException();
@@ -41,7 +41,7 @@ void Span::add_number(int elem)
 	m_is_sorted = false;
 }
 
-long int Span::longest_span(void)
+long int Span::longestSpan(void)
 {
 	if (m_numbers.size() < 2)
 		throw TooFewSpanElemsException();
@@ -55,7 +55,7 @@ long int Span::longest_span(void)
 	return *(m_numbers.end() - 1) - *(m_numbers.begin());
 }
 
-long int Span::shortest_span(void)
+long int Span::shortestSpan(void)
 {
 
 	if (m_numbers.size() < 2)

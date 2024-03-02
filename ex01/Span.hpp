@@ -6,7 +6,7 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 03:29:12 by gmachado          #+#    #+#             */
-/*   Updated: 2024/02/20 04:14:04 by gmachado         ###   ########.fr       */
+/*   Updated: 2024/03/01 22:37:14 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,19 @@ class Span
 
 	public:
 		Span(void);
-		Span(unsigned int N);
-		Span(Span &src);
+		Span(const unsigned int N);
+		Span(const Span &src);
 
 		~Span(void);
 
-		Span &operator=(Span &src);
+		Span &operator=(const Span &src);
 
-		void add_number(int elem);
-		long int longest_span(void);
-		long int shortest_span(void);
+		void addNumber(int elem);
+		long int longestSpan(void);
+		long int shortestSpan(void);
 
 		template<typename InputIt>
-		void add_numbers(InputIt start,
+		void addNumbers(InputIt start,
 			InputIt end);
 
 		class FullSpanException : public std::exception
@@ -70,7 +70,7 @@ class Span
 };
 
 template<typename InputIt>
-void Span::add_numbers(InputIt start, InputIt end)
+void Span::addNumbers(InputIt start, InputIt end)
 {
 	for (InputIt it = start; it != end; ++it)
 	{

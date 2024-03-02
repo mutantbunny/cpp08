@@ -6,12 +6,13 @@
 /*   By: gmachado <gmachado@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/20 23:21:47 by gmachado          #+#    #+#             */
-/*   Updated: 2024/02/21 04:22:53 by gmachado         ###   ########.fr       */
+/*   Updated: 2024/03/01 22:45:42 by gmachado         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "MutantStack.hpp"
 #include <iostream>
+#include <list>
 
 static void print_contents(MutantStack<int> &ms)
 {
@@ -31,7 +32,62 @@ static void print_contents(MutantStack<int> &ms)
 
 int main(void)
 {
-	std::cout << "Test iterators:" << std::endl;
+	{
+		std::cout << "Test example from subject PDF using MutantStack:"
+			<< std::endl;
+
+		MutantStack<int> mstack;
+		mstack.push(5);
+		mstack.push(17);
+		std::cout << mstack.top() << std::endl;
+		mstack.pop();
+		std::cout << mstack.size() << std::endl;
+		mstack.push(3);
+		mstack.push(5);
+		mstack.push(737);
+		//[...]
+		mstack.push(0);
+		MutantStack<int>::iterator it = mstack.begin();
+		MutantStack<int>::iterator ite = mstack.end();
+		++it;
+		--it;
+		while (it != ite)
+		{
+		std::cout << *it << std::endl;
+		++it;
+		}
+		std::stack<int> s(mstack);
+	}
+
+	{
+		std::cout << "\nSame test using a list (should return the same result):"
+			<< std::endl;
+
+		std::list<int> lst;
+		lst.push_back(5);
+		lst.push_back(17);
+		std::cout << lst.back() << std::endl;
+		lst.pop_back();
+		std::cout << lst.size() << std::endl;
+		lst.push_back(3);
+		lst.push_back(5);
+		lst.push_back(737);
+		//[...]
+		lst.push_back(0);
+		std::list<int>::iterator it = lst.begin();
+		std::list<int>::iterator ite = lst.end();
+		++it;
+		--it;
+		while (it != ite)
+		{
+		std::cout << *it << std::endl;
+		++it;
+		}
+		std::stack<int, std::list<int> > s(lst);
+	}
+
+
+	std::cout << "\nTest iterators:" << std::endl;
 
 	std::cout << "-> Create empty MutantStack ms." << std::endl;
 	MutantStack<int> ms;
@@ -157,4 +213,23 @@ int main(void)
 		<< std::endl << "--> ";
 	MutantStack<int> ms3(ms);
 	print_contents(ms2);
+
+	std::cout << "\nTest if copies are deep:" << std::endl;
+	std::cout << "-> Pop last element from ms and push 42." << std::endl;
+	ms.pop();
+	ms.push(42);
+
+	std::cout << "\n-> ms after pop + push:"
+		<< std::endl << "--> ";
+	print_contents(ms);
+
+	std::cout << "\n-> ms2 should remain unchanged:"
+		<< std::endl << "--> ";
+	print_contents(ms2);
+
+	std::cout << "\n-> ms3 should remain unchanged:"
+		<< std::endl << "--> ";
+	print_contents(ms3);
+
+	std::cout << std::endl;
 }
